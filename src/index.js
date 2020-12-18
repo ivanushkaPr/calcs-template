@@ -1,1 +1,1 @@
-import some from './templates/some.js';
+import main from './templates/mainData.js';

@@ -1,9 +1,8 @@
-Internet.Interactive.init({
+import validationMessages from './validationMessages';
+
+export default {
   /*params section*/
-  validateMessages: {
-    "empty": "Поле не заполнено",
-    "number": "Введите число",
-  },
+  validateMessages: validationMessages,
   activeElement: null,
   /*end params*/
   submit: function(event, elem) {
@@ -155,4 +154,4 @@ Internet.Interactive.init({
     
       this.getViewport().querySelector("p.info").insertAdjacentHTML('afterend',  resultHTML);
   }
-});
+}
