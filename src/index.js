@@ -1,0 +1,1 @@
+import some from './templates/some.js';

@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
@@ -17,7 +18,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/calcs/5452030.pug',
       filename: './calc.html',
+      inject: 'head',
+      inlineSource: '.(js|css)$' 
     }),
+    new HtmlWebpackInlineSourcePlugin()
  /*
     new HtmlWebpackPlugin({
       template: './src/pages/room-details.pug',
