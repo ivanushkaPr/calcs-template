@@ -1,0 +1,47 @@
+mixin calc(data)
+  - const {title, inputs, formula, decryptions} = data;
+  div(class="calculator-document")
+    div(class="container")
+      div(class="header")
+        p
+        h2(class="title") #{title}
+        p
+      form(class="input-data white-card")
+        each input in inputs
+          div(class="data-block flexed align-end fieldsline")
+            p(class="inputLabel") !{input.label}
+          
+            div
+              fieldset 
+                legend  #{input.legend}
+                input(type="text" 
+                data-required = "0" 
+                validator=`${input.handler}`)
+          br
+        div(class="data-block flexed align-end top32")
+          input(type="reset" class="active-negative buttonlike" value="Сбросить всё")
+          input(input type="submit" class="active-positive inactive buttonlike" data-calculate="0" value="Рассчитать" name="calculate" disabled)
+        
+        div(class="helpinfo")
+          p  Чтобы произвести расчёт, нужно заполнить все поля
+
+      div(class="output-data")
+        ul(class="tabs")
+          li(class="tab buttonlike") Результаты расчёта
+          li(class="tab buttonlike") Формула расчёта
+        
+        ul(class="tabs-content")
+          li(class="frame")
+            div(class="white-card top-upped tf-results")
+              p(class="info") Нажмите кнопку "Рассчитать"
+            
+          li(class="frame")
+            div(class="tabblock active white-card top-upped" data-index="1")
+              div(class="data-block")
+                p(class="text-for-copy")
+                  a(onclick-function="copyToClipboard") !{formula}
+                  span(data-copyclipboard = 1 onclick-function="copyToClipboard")
+                p. 
+                  Где в формуле: <br>
+                    !{decryptions.join("")} <br>
+

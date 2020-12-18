@@ -1,0 +1,19 @@
+extends ../templates/template.pug
+include ../mixins/mCalc.pug
+
+block calc
+  +calc({
+    title: " Калькулятор лимита остатка наличных денег в кассе исходя из объема выдачи наличных денег ",
+    inputs: [
+      {label:"Объем выдачи наличных денег *(R):", legend: "Рубли", handler: "checkFloatValue"},
+      {label:"Расчетный период** (P):", legend: "Дней", handler: "checkFloatValue"},
+      {label:"Период времени*** (N<sub>n</sub>):", legend: "Дней", handler: "checkFloatValue"},
+    ],
+    formula: "L = R / P x N<sub>n</sub>",
+    decryptions: [
+      'L - Лимит остатка наличных денег <br>',
+      'R - Объем выдачи наличных денег<br>',
+      'P - Расчетный период <br>',
+      'N<sub>n</sub> - Период времени <br>',
+    ],
+  })
