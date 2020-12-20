@@ -7,19 +7,35 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'development',
   entry: {
-    app: './src/index.js',
+    calc5452030: './src/calcs/5452030/calc5452030.js',
+    someOtherCalc: './src/calcs/someOtherCalc/someOtherCalc.js',
   },
   devtool: 'inline-source-map',
+  output: {
+    path: path.resolve(__dirname, './build'),
+    filename: '[name].js',
+    chunkFilename: '[id].[chunkhash].js'
+  },
   devServer: {
     contentBase: './dist'
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/calcs/5452030.pug',
-      filename: './calc.html',
+      template: './src/calcs/5452030/5452030.pug',
+      filename: './5452030.html',
       inject: 'head',
-      inlineSource: '.(js|css)$' 
+      inlineSource: '.(js|css)$',
+      chunks: ['calc5452030'],
+      chunksSortMode: 'manual',
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/calcs/someOtherCalc/someOtherCalc.pug',
+      filename: './someOtherCalc.html',
+      inject: 'head',
+      inlineSource: '.(js|css)$',
+      chunks: ['someOtherCalc'],
+      chunksSortMode: 'manual',
     }),
     new HtmlWebpackInlineSourcePlugin()
  /*
@@ -30,10 +46,7 @@ module.exports = {
     }),
     */
   ],
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
+
   module: {
     rules: [
       {
