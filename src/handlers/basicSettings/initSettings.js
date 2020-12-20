@@ -54,25 +54,7 @@ export default {
     document.execCommand("copy");
     inp.remove();
   },
-  checkFloatValue(elem) {
-    const userInput = elem.value;
-    if(!userInput.match(/^\d*[.,]?\d{0,2}$/)) {
-      elem.value = userInput.slice(0, userInput.length - 1);
-    }
 
-    let value = (parseFloat(elem.value)).toString();
-    let validateStatus = !!value && (/^\d{0,8}[.,]?\d{0,2}?$/).test(value);
-    let validateMessage = !!value ? ( (/^\d{0,8}[.,]?\d{0,2}?$/).test(value) ? null : this.validateMessages.number ) : this.validateMessages.empty
-    this.toggleValidateMessage(validateStatus, elem, validateMessage);
-    if(validateStatus){
-      elem.dataset.required = 1;
-    }
-    else {
-      elem.dataset.required = 0;
-    }
-    this.checkAllFilledFields();
-    return validateStatus;
-  },
   toggleValidateMessage(validateStatus, elem, message){
     let fieldset = elem.closest("fieldset");
     if(validateStatus){
@@ -108,50 +90,5 @@ export default {
       viewPort.querySelector("[data-calculate]").dataset.calculate = 1;
     }
   },
-  /**
-  * расчёт
-  */
-  calculate({tfArray}){
-    const [
-      {value: initialСost},
-      {value: modernizationCosts},
-      {value: usefulLife},
-    ] = tfArray;
-    console.log(initialСost, modernizationCosts, usefulLife);
-    console.log((initialСost + modernizationCosts) / usefulLife);
-    const result = (Number(initialСost) + Number(modernizationCosts)) / usefulLife;
-    return result;
-  },
-  /**
-  * вывод рез-тов
-  */
-  render({textFieldsData}){
-    this.getViewport().querySelector("p.info").classList.add("nodisplay");
-    
-    if(this.getViewport().querySelector("div.calculated ")){
-      this.getViewport().querySelector("div.calculated").remove();
-    }
 
-    const resultHTML = `
-    <div class="calculated">    
-      <div class="data-block flexed align-end">
-          <p class="inputlabel result">
-              Ежемесячная сумма амортизации в целях налогового учета модернизированного ОС (А<sub>мес нал</sub>):
-          </p>
-          <p class="text-for-copy-result">
-            <a>${textFieldsData.toFixed(2)}</a><span data-copyclipboard="1" onclick-function="copyToClipboard"></span>
-          </p>
-        </div>
-        <br>
-  
-        <div class="data-block flexed align-end helpinfo topborder-gray">
-          <p>
-            Все результаты расчётов носят ознакомительный характер.
-          </p>
-        </div>
-      </div>
-      `;
-    
-      this.getViewport().querySelector("p.info").insertAdjacentHTML('afterend',  resultHTML);
-  }
 }

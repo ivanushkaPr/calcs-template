@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, './build'),
-    filename: '[name].js',
+    filename: 'bundles/[name].js',
     chunkFilename: '[id].[chunkhash].js'
   },
   devServer: {
